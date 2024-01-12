@@ -234,7 +234,7 @@ function FilterBox() {
               Rango de Precios: ${value[0].toLocaleString()} - ${value[1].toLocaleString()}
             </Typography>
                 <div className='box-filter-row'>   
-                <Box sx={{ width: 700 }}>
+                <Box sx={{ width: 400}}>
                 <Slider
                     aria-label="Precio"
                     value={value}

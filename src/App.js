@@ -1,4 +1,5 @@
 import React from 'react';
+import NavbarUser from './components/NavbarUser';
 import Navbar from './components/Navbar';
 import './App.css';
 import Home from './components/pages/Home';
@@ -12,6 +13,7 @@ function App() {
     <>
        <Router>
       <Navbar />
+      {/* <NavbarUser /> */}
       <Routes>
         <Route exact path='/' element={<Home/>} />
         <Route path='/sign-up' element={<SignUp/>} />
