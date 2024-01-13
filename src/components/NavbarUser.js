@@ -4,7 +4,20 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 
-function Navbar() {
+
+import { Dropdown } from '@mui/base/Dropdown';
+import { Menu } from '@mui/base/Menu';
+import { MenuButton as BaseMenuButton } from '@mui/base/MenuButton';
+import { MenuItem as BaseMenuItem, menuItemClasses } from '@mui/base/MenuItem';
+import { styled } from '@mui/system';
+
+function NavbarUser() {
+
+    const createHandleMenuClick = (menuItem) => {
+        return () => {
+          console.log(`Clicked on ${menuItem}`);
+        };
+      };
 
     const handleClick = (event) => {
       setClick(!click);
@@ -62,22 +75,8 @@ function Navbar() {
               >
                 Contáctenos
               </Link>
-            </li>   
-            
-            <li>
-              <Link
-                to='/sign-up'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
-                Sign Up / Login
-              </Link>
-            </li>
-
-          </ul>
-          {button && <Button buttonStyle='btn--outline'>AGREGAR PROPIEDAD</Button>}
-         <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-         <li className='nav-item'>
+            </li> 
+            <li className='nav-item'>
               <Link
                 to='/contact-us'
                 className='nav-links'
@@ -85,8 +84,29 @@ function Navbar() {
               >
                 Mi Cuenta
               </Link>
-            </li>   
-         </ul>
+            </li>    
+            <Dropdown>
+            <MenuButton>My account</MenuButton>
+            <Menu slots={{ listbox: Listbox }}>
+                <MenuItem onClick={createHandleMenuClick('Profile')}>Profile</MenuItem>
+                <MenuItem onClick={createHandleMenuClick('Language settings')}>
+                Language settings
+                </MenuItem>
+                <MenuItem onClick={createHandleMenuClick('Log out')}>Log out</MenuItem>
+            </Menu>
+            </Dropdown>
+            <li>
+              <Link
+                to='/sign-up'
+                className='nav-links-mobile'
+                onClick={closeMobileMenu}
+              >
+                Logout
+              </Link>
+            </li>
+
+          </ul>
+          {button && <Button buttonStyle='btn--outline'>AGREGAR PROPIEDAD</Button>}
         </div>
       </nav>
     </>
@@ -94,4 +114,62 @@ function Navbar() {
 }
 
 
-export default Navbar;
+  
+  const Listbox = styled('ul')(
+    ({ theme }) => `
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+    padding: 6px;
+    margin: 12px 0;
+    min-width: 200px;
+    border-radius: 12px;
+    overflow: auto;
+    outline: 0px;
+    background: ${theme.palette.mode === 'dark' ? '#1C2025' : '#fff'};
+    z-index: 1;
+    `,
+  );
+  
+  const MenuItem = styled(BaseMenuItem)(
+    ({ theme }) => `
+    list-style: none;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: default;
+    user-select: none;
+  
+    &:last-of-type {
+      border-bottom: none;
+    }
+  
+    &:hover:not(.${menuItemClasses.disabled}) {
+      background-color: ${theme.palette.mode === 'dark' ? '#003A75' : '#F0F7FF'};
+      color: ${theme.palette.mode === 'dark' ? '#C2E0FF' :'#003A75'};
+    }
+    `,
+  );
+  
+  const MenuButton = styled(BaseMenuButton)(
+    ({ theme }) => `
+    font-size: 1.2rem;
+    line-height: 1.5;
+    padding: 8px 16px;
+    
+    color: white;
+    transition: all 150ms ease;
+    cursor: pointer;
+    background: ${theme.palette.mode === 'dark' ? '#003A75' : '#fff'};
+    border: 0px solid ${theme.palette.mode === 'dark' ? '#434D5B' :'#DAE2ED'};
+    color: #000000;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  
+    &:hover {
+        border-bottom: 4px solid #f67130;
+        transition: all 0.2s ease-out;
+    }
+    `,
+  );
+
+
+export default NavbarUser;
